@@ -3,7 +3,7 @@ const { graphql } = require('graphql')
 const graphqlHTTP = require('express-graphql')
 
 const db = require('./db')
-const rootSchema = require('./schema')
+const schema = require('./src/data/schema')
 
 const app = express()
 const PORT = 3000
@@ -11,7 +11,7 @@ const PORT = 3000
 app.use(
 	'/graphiql',
 	graphqlHTTP({
-		schema: rootSchema,
+		schema: schema,
 		pretty: true,
 		graphiql: true
 	})

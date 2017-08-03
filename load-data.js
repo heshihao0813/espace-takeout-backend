@@ -1,26 +1,35 @@
 const mongoose = require('mongoose')
 const db = require('./db')
-const User = require('./model/user')
+const Restaurant = require('./src/data/restaurant/model/model')
+const Food = require('./src/data/food/model/model')
 
-const neo = new User({
-	username: 'heshihao',
-	salt: 'test',
-	password_hash: 'test_hash'
-})
-
-async function saveUser(user) {
-	try {
-		const saved = await user.save()
-		console.log(saved)
-	} catch (err) {
-		console.log(err.message)
+async function load() {
+	const neo = new Restaurant({
+		id: 'sdafkajsdf',
+		name: `restaurant`,
+		flavour: `flavour`
+	})
+	await neo.save()
+	console.log('restaurant saved')
+	for (let i = 0; i < 5; i++) {
+		const food = new Food({
+			id: `sdfjaskdjf_${i}`,
+			name: `foot_${i}`,
+			restaurant: neo
+		})
+		await food.save()
+		neo.menu.push(food)
+		console.log(`food_${i} saved`)
 	}
+	neo.save()
+	console.log('restaurant menu updated')
 }
 
-async function findUser() {
-	const result = await User.find()
-	console.log(result)
-}
-
-saveUser(neo)
-findUser()
+load()
+	.then(() => {
+		db.close()
+	})
+	.catch(err => {
+		console.log(err)
+		db.close()
+	})
