@@ -1,8 +1,10 @@
 const mongoose = require('mongoose')
 
-const { DB_URI } = require('./config')
+const { DB_URL, DB_NAME } = require('../config')
+const DB_URI = `${DB_URL}/${DB_NAME}`
 
 mongoose.connect(DB_URI)
+mongoose.Promise = Promise
 
 mongoose.connection.on('connected', () =>
   console.log(`Mongoose default connection open to ${DB_URI}`)
