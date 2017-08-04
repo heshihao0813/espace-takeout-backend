@@ -3,6 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const graphqlHTTP = require('express-graphql')
+const MongoStore = require('connect-mongo')(session)
 
 const passport = require('../data/user/passport')
 const schema = require('../data/schema')
@@ -19,7 +20,10 @@ class Loader extends events.EventEmitter {
       session({
         secret: 'espace takeout',
         saveUninitialized: true,
-        resave: true
+        resave: true,
+        store: new MongoStore({
+          mongooseConnection: db
+        })
       })
     )
     app.use(passport.initialize())
