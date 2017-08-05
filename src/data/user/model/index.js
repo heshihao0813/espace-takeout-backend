@@ -23,26 +23,35 @@ const model = {
     return createUser
   },
 
-  login ({ username, password, req }) {
-    if (req.user) {
-      return req.user
+  login ({ username, password }, context) {
+    if (context.user) {
+      return context.user
     }
 
-    req.body.username = username
-    req.body.password = password
+    context.body.username = username
+    context.body.password = password
     const auth = new Promise((resolve, reject) => {
       passport.authenticate('local', (err, user, info) => {
         err && reject(err)
         !user && reject(new Error('Login failed'))
 
-        req.logIn(user, err => {
+        context.logIn(user, err => {
           err && reject(err)
           resolve(user)
         })
-      })(req)
+      })(context)
     })
 
     return auth
+  },
+
+  logout (context) {
+    if (!context.user) {
+      return new Error('Not logged in yet')
+    }
+    const username = context.user.username
+    context.logout()
+    return username
   }
 }
 

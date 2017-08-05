@@ -5,16 +5,14 @@ const fields = require('../type/fields')
 
 module.exports = {
   type: new GraphQLObjectType({
-    name: 'Login',
+    name: 'Logout',
     fields: {
       username: fields.username
     }
   }),
-  args: {
-    username: fields.username,
-    password: fields.password
-  },
   resolve (root, params, context, ast) {
-    return model.login(params, context)
+    return {
+      username: model.logout(context)
+    }
   }
 }
