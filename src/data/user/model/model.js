@@ -11,7 +11,25 @@ const userSchema = new mongoose.Schema(
       enum: genderEnum,
       required: true
     },
-    birthday: Date
+    birthday: Date,
+    preference: [
+      {
+        restaurant: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Restaurant'
+        },
+        rate: {
+          type: Number,
+          default: 0,
+          min: 0,
+          max: 10
+        }
+      }
+    ],
+    admin: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     collection: 'user'

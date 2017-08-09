@@ -1,23 +1,28 @@
 const {
-	GraphQLList,
-	GraphQLNonNull,
-	GraphQLObjectType,
-	GraphQLString,
-	GraphQLFloat,
-	GraphQLBoolean
+  GraphQLNonNull,
+  GraphQLInt,
+  GraphQLFloat,
+  GraphQLString,
+  GraphQLBoolean
 } = require('graphql')
 
 module.exports = {
-	id: {
-		type: new GraphQLNonNull(GraphQLString)
-	},
-	name: {
-		type: new GraphQLNonNull(GraphQLString)
-	},
-	flavour: {
-		type: GraphQLString
-	},
-	blacklist: {
-		type: GraphQLBoolean
-	}
+  eleme_id: {
+    type: GraphQLInt
+  },
+  name: {
+    type: new GraphQLNonNull(GraphQLString)
+  },
+  address_text: {
+    type: new GraphQLNonNull(GraphQLString)
+  },
+  longitude: {
+    type: new GraphQLNonNull(GraphQLFloat)
+  },
+  atitude: {
+    type: new GraphQLNonNull(GraphQLFloat)
+  },
+  blacklist: {
+    type: GraphQLBoolean
+  }
 }
