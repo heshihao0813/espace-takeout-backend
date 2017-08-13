@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --harmony index.js",
-    "dev": "nodemon --harmony index.js",
-    "lint": "eslint ./",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cross-env NODE_PATH=./src node --harmony index.js",
+    "dev": "cross-env NODE_PATH=./src nodemon --harmony index.js",
+    "test": "cross-env NODE_PATH=./src mocha --harmony test/**/*.spec.js",
+    "lint": "eslint src/"
   },
   "repository": {
     "type": "git",
@@ -37,9 +37,11 @@
   },
   "devDependencies": {
     "chai": "^4.1.0",
+    "cross-env": "^5.0.5",
     "eslint": "^4.3.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-mocha": "^4.11.0",
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",

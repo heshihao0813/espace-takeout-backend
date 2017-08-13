@@ -5,9 +5,9 @@ const session = require('express-session')
 const graphqlHTTP = require('express-graphql')
 const MongoStore = require('connect-mongo')(session)
 
-const passport = require('../data/user/passport')
-const schema = require('../data/schema')
-const { APP_PORT } = require('../config')
+const passport = require('data/user/passport')
+const schema = require('data/schema')
+const { APP_PORT } = require('config')
 
 const app = express()
 

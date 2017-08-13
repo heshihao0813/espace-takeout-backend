@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
 
-const { genderEnum } = require.main.require('./src/constant/enum')
+const { genderEnum } = require('constant/enum')
 
 const userSchema = new mongoose.Schema(
   {

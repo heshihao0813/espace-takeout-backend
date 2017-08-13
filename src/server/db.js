@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const { DB_URL, DB_NAME } = require('../config')
+const { DB_URL, DB_NAME } = require('config')
 const DB_URI = `${DB_URL}/${DB_NAME}`
 
 mongoose.connect(DB_URI)
