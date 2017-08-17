@@ -15,7 +15,7 @@ module.exports = {
   password: {
     type: new GraphQLNonNull(GraphQLString)
   },
-  display_name: {
+  displayName: {
     type: GraphQLString
   },
   gender: {

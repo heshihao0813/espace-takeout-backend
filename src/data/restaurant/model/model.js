@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const restaurantSchema = new mongoose.Schema(
   {
-    eleme_id: {
+    elemeId: {
       type: Number,
       unique: true
     },
@@ -16,7 +16,7 @@ const restaurantSchema = new mongoose.Schema(
         ref: 'Category' // TODO
       }
     ],
-    address_text: {
+    addressText: {
       type: String,
       required: true
     },
@@ -28,7 +28,7 @@ const restaurantSchema = new mongoose.Schema(
       type: Number,
       required: true
     },
-    add_date: {
+    addDate: {
       type: Date,
       default: Date.now
     },

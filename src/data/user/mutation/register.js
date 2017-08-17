@@ -4,7 +4,7 @@ const model = require('../model/')
 const {
   username,
   password,
-  display_name,
+  displayName,
   gender,
   birthday
 } = require('../type/fields')
@@ -14,7 +14,7 @@ module.exports = {
     name: 'Register',
     fields: {
       username,
-      display_name,
+      displayName,
       gender,
       birthday
     }
@@ -22,7 +22,7 @@ module.exports = {
   args: {
     username,
     password,
-    display_name,
+    displayName,
     gender,
     birthday
   },

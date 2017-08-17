@@ -5,7 +5,11 @@ const { genderEnum } = require('constant/enum')
 
 const userSchema = new mongoose.Schema(
   {
-    display_name: String,
+    email: {
+      type: String,
+      unique: true
+    },
+    displayName: String,
     gender: {
       type: String,
       enum: genderEnum,

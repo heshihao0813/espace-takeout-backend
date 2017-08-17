@@ -3,15 +3,13 @@ const { GraphQLObjectType } = require('graphql')
 const model = require('../model/')
 const fields = require('../type/fields')
 
-delete fields._id
-
 module.exports = {
   type: new GraphQLObjectType({
-    name: 'AddRestaurant',
+    name: 'UpdateRestaurant',
     fields
   }),
   args: fields,
   resolve (root, params, context, ast) {
-    return model.add(params)
+    return model.update(params, params)
   }
 }

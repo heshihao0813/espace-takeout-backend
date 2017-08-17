@@ -2,12 +2,12 @@ const passport = require('passport')
 const User = require('./model')
 
 const model = {
-  register ({ username, password, display_name, gender, birthday }) {
+  register ({ username, password, displayName, gender, birthday }) {
     const createUser = new Promise((resolve, reject) => {
       User.register(
         new User({
           username,
-          display_name,
+          display_name: displayName,
           gender,
           birthday
         }),

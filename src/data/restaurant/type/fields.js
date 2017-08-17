@@ -7,13 +7,16 @@ const {
 } = require('graphql')
 
 module.exports = {
-  eleme_id: {
+  _id: {
+    type: GraphQLString
+  },
+  elemeId: {
     type: GraphQLInt
   },
   name: {
     type: new GraphQLNonNull(GraphQLString)
   },
-  address_text: {
+  addressText: {
     type: new GraphQLNonNull(GraphQLString)
   },
   longitude: {
