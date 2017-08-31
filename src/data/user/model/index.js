@@ -1,58 +1,59 @@
-const passport = require('passport')
+const jwt = require('jsonwebtoken')
+
+const { JWT_SECRET, JWT_EXPIRY } = require('config')
 const User = require('./model')
 
+const generateToken = user =>
+  jwt.sign(
+    {
+      _id: user._id
+    },
+    JWT_SECRET,
+    {
+      expiresIn: JWT_EXPIRY
+    }
+  )
+
 const model = {
-  register ({ username, password, displayName, gender, birthday }) {
-    const createUser = new Promise((resolve, reject) => {
-      User.register(
-        new User({
-          username,
-          display_name: displayName,
-          gender,
-          birthday
-        }),
-        password,
-        (err, user) => {
-          err && reject(err)
-          !user && reject(new Error('Registration failed'))
-          resolve(user)
-        }
-      )
+  async register ({ username, password }) {
+    const user = new User({
+      username,
+      password,
+      displayName: username
     })
 
-    return createUser
+    try {
+      await user.save()
+      return {
+        username: user.username,
+        token: generateToken(user)
+      }
+    } catch (err) {
+      return err
+    }
   },
 
-  login ({ username, password }, context) {
-    if (context.user) {
-      return context.user
-    }
-
-    context.body.username = username
-    context.body.password = password
-    const auth = new Promise((resolve, reject) => {
-      passport.authenticate('local', (err, user, info) => {
-        err && reject(err)
-        !user && reject(new Error('Login failed'))
-
-        context.logIn(user, err => {
-          err && reject(err)
-          resolve(user)
-        })
-      })(context)
+  async login ({ username, password }, context) {
+    const user = await User.findOne({
+      username
     })
+    if (!user) {
+      return new Error('Authentication failed. User not found.')
+    }
 
-    return auth
+    const authed = await user.authenticate(password)
+    if (!authed) {
+      return new Error('Authentication failed. Wrong password.')
+    }
+
+    return {
+      username: user.username,
+      token: generateToken(user)
+    }
   },
 
-  logout (context) {
-    if (!context.user) {
-      return new Error('Not logged in yet')
-    }
-    const username = context.user.username
-    context.logout()
-    return username
-  }
+  // Reserved
+  logout (context) {}
 }
 
 module.exports = model

@@ -1,18 +1,19 @@
 const { GraphQLObjectType } = require('graphql')
 
 const model = require('../model')
-const fields = require('../type/fields')
+const { username, password, token } = require('../type/fields')
 
 module.exports = {
   type: new GraphQLObjectType({
     name: 'Login',
     fields: {
-      username: fields.username
+      username,
+      token
     }
   }),
   args: {
-    username: fields.username,
-    password: fields.password
+    username,
+    password
   },
   resolve (root, params, context, ast) {
     return model.login(params, context)

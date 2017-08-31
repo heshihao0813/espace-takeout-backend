@@ -1,36 +1,26 @@
 const events = require('events')
 const express = require('express')
-const bodyParser = require('body-parser')
-const session = require('express-session')
 const graphqlHTTP = require('express-graphql')
-const MongoStore = require('connect-mongo')(session)
+const jwt = require('express-jwt')
 
-const passport = require('data/user/passport')
 const schema = require('data/schema')
-const { APP_PORT } = require('config')
+const { APP_PORT, JWT_SECRET } = require('config')
 
 const app = express()
 
 class Loader extends events.EventEmitter {
   init () {
-    const db = require('./db')
+    require('./db')
 
-    app.use(bodyParser.json())
     app.use(
-      session({
-        secret: 'espace takeout',
-        saveUninitialized: true,
-        resave: true,
-        store: new MongoStore({
-          mongooseConnection: db
-        })
+      jwt({
+        secret: JWT_SECRET,
+        credentialsRequired: false
       })
     )
-    app.use(passport.initialize())
-    app.use(passport.session())
 
     app.use(
-      '/graphiql',
+      '/graphql',
       graphqlHTTP({
         schema: schema,
         pretty: true,

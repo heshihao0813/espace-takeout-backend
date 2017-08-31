@@ -5,16 +5,16 @@ const User = require('data/user/model/model')
 describe('Spec for user schema', function () {
   it('should be invalid if [username] is missed', done => {
     const user = new User()
-    User.register(user, 'password', (err, user) => {
-      expect(err.name).to.equal('MissingUsernameError')
+    user.validate(err => {
+      expect(err.errors.username).to.exist
       done()
     })
   })
 
-  it('should be invalid if [gender] is missed', done => {
+  it('should be invalid if [password] is missed', done => {
     const user = new User()
     user.validate(err => {
-      expect(err.errors.gender).to.exist
+      expect(err.errors.password).to.exist
       done()
     })
   })

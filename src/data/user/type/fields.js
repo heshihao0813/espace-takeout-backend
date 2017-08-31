@@ -15,17 +15,26 @@ module.exports = {
   password: {
     type: new GraphQLNonNull(GraphQLString)
   },
-  displayName: {
-    type: GraphQLString
-  },
-  gender: {
+  token: {
     type: new GraphQLNonNull(GraphQLString)
+  },
+  admin: {
+    type: GraphQLBoolean
   },
   birthday: {
     type: GraphQLDate
   },
-  admin: {
-    type: GraphQLBoolean
+  created: {
+    type: GraphQLDate
+  },
+  displayName: {
+    type: GraphQLString
+  },
+  email: {
+    type: GraphQLString
+  },
+  gender: {
+    type: new GraphQLNonNull(GraphQLString)
   },
   preference: {
     type: [
